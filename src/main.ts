@@ -1,5 +1,9 @@
-import * as server from "@minecraft/server";
+import { world } from "@minecraft/server";
+import SystemIntervalManager from "managers/SystemIntervalManager";
+import ParticleCylinder from "./intervals/ParticleCylinder";
 
-server.world.afterEvents.worldInitialize.subscribe(() => {
-	server.world.sendMessage(`Hello, world!`);
+world.afterEvents.worldInitialize.subscribe(() => {
+	world.getDimension("overworld").runCommand("wsserver ws://localhost:8080");
 });
+
+SystemIntervalManager.registerIntervals([new ParticleCylinder()]);

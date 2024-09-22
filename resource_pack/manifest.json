@@ -1,22 +1,22 @@
 {
 	"format_version": 2,
 	"header": {
-		"name": "Bedrock TypeScript Starter RP",
-		"description": "A template to get started with Bedrock Add-on Development in TypeScript.",
-		"uuid": "d7a5044d-936d-4bef-9e28-b7e12325d287",
+		"name": "Island Man RP",
+		"description": "Island Man.",
+		"uuid": "e0760634-25ba-4aea-a6f7-e02b580dc52f",
 		"version": [1, 0, 0],
-		"min_engine_version": [1, 20, 50]
+		"min_engine_version": [1, 21, 30]
 	},
 	"modules": [
 		{
 			"type": "resources",
 			"description": "Resources",
-			"uuid": "e094b536-5dd4-4400-bebf-b657295bb15e",
+			"uuid": "21dcdc30-335e-48ce-9450-726661319592",
 			"version": [1, 0, 0]
 		}
 	],
 	"metadata": {
-		"authors": ["ImLighty"],
-		"url": "https://github.com/imlighty/bedrock-typescript-starter.git"
+		"authors": ["XLFrie"],
+		"url": "https://github.com/xlfrie/islandman.git"
 	}
 }
