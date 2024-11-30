@@ -7,7 +7,7 @@ import IntermissionActionBar from "./runs/intermission/intervals/IntermissionAct
 
 export class GameStateManager {
 	private _states: Gamestate = { started: false, state: State.INTERMISSION };
-	private registeredIntervals: number[] = [];
+	private registeredRuns: number[] = [];
 
 	public loadGameState() {
 		const states = world.getDynamicProperty("islandman:GameState");
@@ -50,7 +50,7 @@ export class GameStateManager {
 	private onChange() {
 		this.saveGameState();
 
-		for (const id of this.registeredIntervals) {
+		for (const id of this.registeredRuns) {
 			system.clearRun(id);
 		}
 
@@ -74,7 +74,7 @@ export class GameStateManager {
 		}
 
 		for (const id of intervals) {
-			this.registeredIntervals.push(id);
+			this.registeredRuns.push(id);
 		}
 	}
 }
