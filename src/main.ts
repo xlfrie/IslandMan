@@ -1,4 +1,5 @@
 import { world } from "@minecraft/server";
+import CommandManager from "managers/CommandManager";
 import EventManager from "managers/EventManager";
 import SystemIntervalManager from "managers/SystemIntervalManager";
 import ChatHelper, { Colors, LOG_LEVEL } from "utils/ChatHelper";
@@ -13,6 +14,7 @@ world.afterEvents.worldInitialize.subscribe(() => {
 	GameStateManager.loadGameState();
 });
 
+CommandManager.setConfig({ prefix: ";" }).registerCommands().init();
 SystemIntervalManager.registerIntervals([new ParticleForcefield()]);
 EventManager.registerEvents([
 	new ControlBlockBreakProtection(),
