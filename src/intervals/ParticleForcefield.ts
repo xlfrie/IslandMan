@@ -1,8 +1,14 @@
-import { MolangVariableMap, system, world } from "@minecraft/server";
+import {
+	LocationInUnloadedChunkError,
+	MolangVariableMap,
+	system,
+	world,
+} from "@minecraft/server";
 import Interval from "types/Interval";
+import ChatHelper from "utils/ChatHelper";
 import { Vector } from "wrappers/Vector";
 
-export default class ParticleCylinder implements Interval {
+export default class ParticleForcefield implements Interval {
 	public name: string = "particle-cylinder";
 	public delay: number = 1;
 	private tickMax = 40;
@@ -43,11 +49,19 @@ export default class ParticleCylinder implements Interval {
 					Math.cos(theta + offset) * this.radius + 0.5
 				);
 
-				this.overworld.spawnParticle(
-					"minecraft:colored_flame_particle",
-					loc,
-					this.molangVarMap
-				);
+				try {
+					this.overworld.spawnParticle(
+						"minecraft:colored_flame_particle",
+						loc,
+						this.molangVarMap
+					);
+				} catch (e) {
+					if (e instanceof LocationInUnloadedChunkError) {
+						ChatHelper.broadcastMessage("Hello");
+					} else {
+						throw e;
+					}
+				}
 			}
 		}
 
