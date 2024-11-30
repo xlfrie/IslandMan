@@ -1,3 +1,3 @@
-export class UnitTestregister {
+export class UnitTestRegister {
 	public static register() {}
 }
