@@ -22,11 +22,14 @@
 			},
 			"xlfrie:decide": {
 				"minecraft:behavior.move_to_block": {
-					"start_chance": 10,
+					"start_chance": 100,
 					"search_range": 32,
 					"goal_radius": 0.1,
-					"stay_duration": 2,
-					"target_blocks": ["minecraft:light_weighted_pressure_plate"]
+					"stay_duration": 10,
+					"target_blocks": [
+						"minecraft:light_weighted_pressure_plate"
+					],
+					"target_selection_method": "random"
 				},
 				"minecraft:navigation.walk": {}
 			},
@@ -37,7 +40,17 @@
 					"search_range": 32,
 					"goal_radius": 0.1,
 					"stay_duration": 2,
-					"target_blocks": ["minecraft:lapis_block"]
+					"target_blocks": ["minecraft:lapis_block"],
+					"priority": 10
+				},
+				"minecraft:behavior.random_look_around": {},
+				"minecraft:behavior.look_at_player": {
+					"angle_of_view_vertical": 360,
+					"angle_of_view_horizontal": 360,
+					"look_distance": 8,
+					"probability": 0.02,
+					"look_time": [],
+					"target_distance": 64
 				},
 				"minecraft:navigation.walk": {}
 			}
