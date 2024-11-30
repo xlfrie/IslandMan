@@ -2,6 +2,7 @@ import { system, world } from "@minecraft/server";
 import SystemIntervalManager from "managers/SystemIntervalManager";
 import ChatHelper, { LOG_LEVEL } from "utils/ChatHelper";
 import Intermission from "./intervals/states/Intermission/Intermission";
+import IntermissionActionBar from "./intervals/states/Intermission/IntermissionActionBar";
 
 export class GameStateManager {
 	private _states: GameState = { started: false, state: State.INTERMISSION };
@@ -58,6 +59,7 @@ export class GameStateManager {
 			case State.INTERMISSION:
 				intervals = SystemIntervalManager.registerIntervals([
 					new Intermission(),
+					new IntermissionActionBar(),
 				]);
 				break;
 			case State.CUTSCENE:
