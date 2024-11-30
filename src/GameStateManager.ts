@@ -1,8 +1,8 @@
 import { system, world } from "@minecraft/server";
 import SystemIntervalManager from "managers/SystemIntervalManager";
 import ChatHelper, { LOG_LEVEL } from "utils/ChatHelper";
-import Intermission from "./intervals/states/Intermission/Intermission";
-import IntermissionActionBar from "./intervals/states/Intermission/IntermissionActionBar";
+import Intermission from "./gamestates/runs/intermission/intervals/Intermission";
+import IntermissionActionBar from "./gamestates/runs/intermission/intervals/IntermissionActionBar";
 
 export class GameStateManager {
 	private _states: GameState = { started: false, state: State.INTERMISSION };
