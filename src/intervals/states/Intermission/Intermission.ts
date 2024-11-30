@@ -7,7 +7,13 @@ export default class Intermission implements StateInterval {
 
 	public handlesState: State = State.INTERMISSION;
 
+	private firstTick = true;
+
 	public execute = async () => {
+		if (this.firstTick) {
+			this.firstTick = false;
+		}
+
 		return 0;
 	};
 }
