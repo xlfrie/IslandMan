@@ -1,4 +1,3 @@
-import ChatHelper, { LOG_LEVEL } from "utils/ChatHelper";
 import { State } from "../../GameStateManager";
 import StateInterval from "./StateInterval";
 
@@ -9,7 +8,7 @@ export default class Intermission implements StateInterval {
 	public handlesState: State = State.INTERMISSION;
 
 	public execute = async () => {
-		ChatHelper.log(":Yo", LOG_LEVEL.DEBUG);
+		// ChatHelper.log(":Yo", LOG_LEVEL.DEBUG);
 		return 0;
 	};
 }

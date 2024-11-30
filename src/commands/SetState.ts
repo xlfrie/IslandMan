@@ -16,7 +16,7 @@ export default class SetState implements Command {
 			states.state = newState;
 
 			gameStateManager.states = states;
-			ChatHelper.log(`${State[newState].toString()}`);
+			ChatHelper.log(`Set state to ${State[newState].toString()}`);
 		}
 
 		return 0;

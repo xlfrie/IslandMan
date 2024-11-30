@@ -8,9 +8,9 @@ export class GameStateManager {
 	private registeredIntervals: number[] = [];
 
 	public loadGameState() {
-		const state = world.getDynamicProperty("islandman:GameState");
+		const states = world.getDynamicProperty("islandman:GameState");
 
-		if (state === undefined) {
+		if (states === undefined) {
 			ChatHelper.log(
 				"Gamestate was unset, setting defaults",
 				LOG_LEVEL.WARN
@@ -19,13 +19,10 @@ export class GameStateManager {
 			return;
 		}
 
-		if (typeof state !== "string") throw new Error("Corrupted gamestate");
+		if (typeof states !== "string") throw new Error("Corrupted gamestate");
 
-		ChatHelper.log(
-			`Successfully loaded gamestate: ${state}`,
-			LOG_LEVEL.DEBUG
-		);
-		this.states = JSON.parse(state);
+		ChatHelper.log(`Successfully loaded gamestate`);
+		this.states = JSON.parse(states);
 	}
 
 	private saveGameState() {
@@ -40,7 +37,10 @@ export class GameStateManager {
 	}
 
 	set states(state) {
-		ChatHelper.log("Gamestate change", LOG_LEVEL.DEBUG);
+		ChatHelper.log(
+			`Gamestate change, new data ${JSON.stringify(state)}`,
+			LOG_LEVEL.DEBUG
+		);
 		this._states = state;
 		this.onChange();
 	}
