@@ -1,7 +1,7 @@
 import { ChatSendBeforeEvent } from "@minecraft/server";
 import Command from "types/Command";
 import ChatHelper from "utils/ChatHelper";
-import { State } from "../GameStateManager";
+import { State } from "../gamestates/GameStateManager";
 import { gameStateManager } from "../main";
 
 export default class SetState implements Command {

@@ -1,11 +1,12 @@
 import { system, world } from "@minecraft/server";
 import SystemIntervalManager from "managers/SystemIntervalManager";
 import ChatHelper, { LOG_LEVEL } from "utils/ChatHelper";
-import Intermission from "./gamestates/runs/intermission/intervals/Intermission";
-import IntermissionActionBar from "./gamestates/runs/intermission/intervals/IntermissionActionBar";
+import Gameplay from "./runs/gameplay/Gameplay";
+import Intermission from "./runs/intermission/Intermission";
+import IntermissionActionBar from "./runs/intermission/intervals/IntermissionActionBar";
 
 export class GameStateManager {
-	private _states: GameState = { started: false, state: State.INTERMISSION };
+	private _states: Gamestate = { started: false, state: State.INTERMISSION };
 	private registeredIntervals: number[] = [];
 
 	public loadGameState() {
@@ -33,7 +34,7 @@ export class GameStateManager {
 		);
 	}
 
-	get states(): GameState {
+	get states(): Gamestate {
 		return this._states;
 	}
 
@@ -57,14 +58,15 @@ export class GameStateManager {
 
 		switch (this._states.state) {
 			case State.INTERMISSION:
+				new Intermission().setup();
 				intervals = SystemIntervalManager.registerIntervals([
-					new Intermission(),
 					new IntermissionActionBar(),
 				]);
 				break;
 			case State.CUTSCENE:
 				break;
 			case State.GAMEPLAY:
+				new Gameplay().setup();
 				break;
 			default:
 				ChatHelper.log("Unknown state");
@@ -77,7 +79,7 @@ export class GameStateManager {
 	}
 }
 
-export interface GameState {
+export interface Gamestate {
 	started: boolean;
 	state: State;
 }

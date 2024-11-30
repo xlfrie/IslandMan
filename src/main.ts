@@ -6,7 +6,7 @@ import ChatHelper, { Colors, LOG_LEVEL } from "utils/ChatHelper";
 import SetState from "./commands/SetState";
 import ControlBlockBreakProtection from "./events/ControlBlockBreakProtection";
 import ControlBlockPlaceProtection from "./events/ControlBlockPlaceProtection";
-import { GameStateManager } from "./GameStateManager";
+import { GameStateManager } from "./gamestates/GameStateManager";
 import ParticleForcefield from "./intervals/ParticleForcefield";
 import { UnitTestRegister } from "./tests/UnitTestRegister";
 

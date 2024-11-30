@@ -1,6 +1,6 @@
 import { world } from "@minecraft/server";
 import { Colors } from "utils/ChatHelper";
-import { State } from "../../../../GameStateManager";
+import { State } from "../../../GameStateManager";
 import StateInterval from "../../StateInterval";
 
 export default class ActionBar implements StateInterval {
