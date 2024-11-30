@@ -10,7 +10,7 @@
 		"component_groups": {
 			"xlfrie:idle": {
 				"minecraft:behavior.random_stroll": {
-					"priority": 1,
+					"priority": 0,
 					"speed_multiplier": 0.6
 				},
 				"minecraft:navigation.walk": {
@@ -18,6 +18,9 @@
 						"minecraft:light_weighted_pressure_plate",
 						"minecraft:quartz_slab"
 					]
+				},
+				"minecraft:movement": {
+					"value": 0.6
 				}
 			},
 			"xlfrie:decide": {
@@ -25,13 +28,13 @@
 					"start_chance": 100,
 					"search_range": 32,
 					"goal_radius": 0.1,
-					"stay_duration": 10,
+					"stay_duration": 0,
 					"target_blocks": [
 						"minecraft:light_weighted_pressure_plate"
 					],
 					"target_selection_method": "random"
 				},
-				"minecraft:navigation.walk": {}
+				"minecraft:navigation.walk": { "can_path_from_air": false }
 			},
 
 			"xlfrie:center": {
@@ -41,7 +44,7 @@
 					"goal_radius": 0.1,
 					"stay_duration": 2,
 					"target_blocks": ["minecraft:lapis_block"],
-					"priority": 10
+					"priority": 0
 				},
 				"minecraft:behavior.random_look_around": {},
 				"minecraft:behavior.look_at_player": {
@@ -109,7 +112,7 @@
 					"component_groups": ["xlfrie:decide"]
 				},
 				"remove": {
-					"component_groups": ["xlfrie:center"]
+					"component_groups": ["xlfrie:center", "xlfrie:idle"]
 				}
 			},
 			"xlfrie:idle": {
@@ -117,7 +120,7 @@
 					"component_groups": ["xlfrie:idle"]
 				},
 				"remove": {
-					"component_groups": ["xlfrie:decide"]
+					"component_groups": ["xlfrie:decide", "xlfrie:center"]
 				}
 			},
 			"xlfrie:go_center": {
@@ -125,7 +128,11 @@
 					"component_groups": ["xlfrie:center"]
 				},
 				"remove": {
-					"component_groups": ["xlfrie:idle", "xlfrie:center"]
+					"component_groups": [
+						"xlfrie:idle",
+						"xlfrie:center",
+						"xlfrie:decide"
+					]
 				}
 			}
 		}
