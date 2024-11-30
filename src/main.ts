@@ -3,18 +3,23 @@ import CommandManager from "managers/CommandManager";
 import EventManager from "managers/EventManager";
 import SystemIntervalManager from "managers/SystemIntervalManager";
 import ChatHelper, { Colors, LOG_LEVEL } from "utils/ChatHelper";
+import SetState from "./commands/SetState";
 import ControlBlockBreakProtection from "./events/ControlBlockBreakProtection";
 import ControlBlockPlaceProtection from "./events/ControlBlockPlaceProtection";
 import { GameStateManager } from "./GameStateManager";
 import ParticleForcefield from "./intervals/ParticleForcefield";
 import { UnitTestRegister } from "./tests/UnitTestRegister";
 
+let gameStateManager = new GameStateManager();
+
 world.afterEvents.worldInitialize.subscribe(() => {
 	ChatHelper.log(Colors.GREEN + Colors.BOLD + "Loaded", LOG_LEVEL.VERBOSE);
-	GameStateManager.loadGameState();
+	gameStateManager.loadGameState();
 });
 
-CommandManager.setConfig({ prefix: ";" }).registerCommands().init();
+CommandManager.setConfig({ prefix: ";" })
+	.registerCommands([new SetState()])
+	.init();
 SystemIntervalManager.registerIntervals([new ParticleForcefield()]);
 EventManager.registerEvents([
 	new ControlBlockBreakProtection(),
@@ -23,3 +28,5 @@ EventManager.registerEvents([
 
 UnitTestRegister.register();
 ChatHelper.setLogLevel(LOG_LEVEL.DEBUG);
+
+export { gameStateManager };

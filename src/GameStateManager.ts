@@ -1,10 +1,13 @@
-import { world } from "@minecraft/server";
+import { system, world } from "@minecraft/server";
+import SystemIntervalManager from "managers/SystemIntervalManager";
 import ChatHelper, { LOG_LEVEL } from "utils/ChatHelper";
+import Intermission from "./intervals/states/Intermission";
 
 export class GameStateManager {
-	private static state: GameState;
+	private _states: GameState = { started: false, state: State.INTERMISSION };
+	private registeredIntervals: number[] = [];
 
-	public static loadGameState() {
+	public loadGameState() {
 		const state = world.getDynamicProperty("islandman:GameState");
 
 		if (state === undefined) {
@@ -12,7 +15,6 @@ export class GameStateManager {
 				"Gamestate was unset, setting defaults",
 				LOG_LEVEL.WARN
 			);
-			this.state = { started: false };
 			this.saveGameState();
 			return;
 		}
@@ -23,26 +25,63 @@ export class GameStateManager {
 			`Successfully loaded gamestate: ${state}`,
 			LOG_LEVEL.DEBUG
 		);
-		this.state = JSON.parse(state);
+		this.states = JSON.parse(state);
 	}
 
-	private static saveGameState() {
+	private saveGameState() {
 		world.setDynamicProperty(
 			"islandman:GameState",
-			JSON.stringify(this.state)
+			JSON.stringify(this._states)
 		);
 	}
 
-	get state(): GameState {
-		return this.state;
+	get states(): GameState {
+		return this._states;
 	}
 
-	set state(state) {
-		this.state = state;
-		ChatHelper.broadcastMessage("Gamestate change");
+	set states(state) {
+		ChatHelper.log("Gamestate change", LOG_LEVEL.DEBUG);
+		this._states = state;
+		this.onChange();
+	}
+
+	private onChange() {
+		this.saveGameState();
+
+		for (const id of this.registeredIntervals) {
+			system.clearRun(id);
+		}
+
+		let intervals: number[] = [];
+
+		switch (this._states.state) {
+			case State.INTERMISSION:
+				intervals = SystemIntervalManager.registerIntervals([
+					new Intermission(),
+				]);
+				break;
+			case State.CUTSCENE:
+				break;
+			case State.GAMEPLAY:
+				break;
+			default:
+				ChatHelper.log("Unknown state");
+				break;
+		}
+
+		for (const id of intervals) {
+			this.registeredIntervals.push(id);
+		}
 	}
 }
 
 export interface GameState {
 	started: boolean;
+	state: State;
+}
+
+export enum State {
+	INTERMISSION,
+	CUTSCENE,
+	GAMEPLAY,
 }
