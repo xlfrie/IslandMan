@@ -3,9 +3,9 @@
 	"header": {
 		"name": "Island Man RP",
 		"description": "Island Man.",
-		"uuid": "e0760634-25ba-4aea-a6f7-e02b580dc52f",
+		"uuid": "bcf80f79-e3e7-407a-818f-7410a63137a8",
 		"version": [1, 0, 0],
-		"min_engine_version": [1, 21, 30]
+		"min_engine_version": [1, 21, 44]
 	},
 	"modules": [
 		{
