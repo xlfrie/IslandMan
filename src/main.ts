@@ -9,8 +9,8 @@ import ParticleForcefield from "./intervals/ParticleForcefield";
 import { UnitTestRegister } from "./tests/UnitTestRegister";
 
 world.afterEvents.worldInitialize.subscribe(() => {
-	GameStateManager.loadGameState();
 	ChatHelper.log(Colors.GREEN + Colors.BOLD + "Loaded", LOG_LEVEL.VERBOSE);
+	GameStateManager.loadGameState();
 });
 
 SystemIntervalManager.registerIntervals([new ParticleForcefield()]);
@@ -20,4 +20,4 @@ EventManager.registerEvents([
 ]);
 
 UnitTestRegister.register();
-ChatHelper.setLogLevel(LOG_LEVEL.VERBOSE);
+ChatHelper.setLogLevel(LOG_LEVEL.DEBUG);
