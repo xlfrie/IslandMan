@@ -1,13 +1,11 @@
 import { world } from "@minecraft/server";
+import Interval from "types/Interval";
 import { Colors } from "utils/ChatHelper";
-import { State } from "../../../GameStateManager";
-import StateInterval from "../../StateInterval";
 
-export default class ActionBar implements StateInterval {
+export default class IntermissionActionbar implements Interval {
 	public name: string = "intermission-actionbar";
 	public delay: number = 5;
 
-	public handlesState: State = State.INTERMISSION;
 	private wheel = ["\\^v^/", "/^v^\\"];
 	private iteration: number = 0;
 

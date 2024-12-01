@@ -5,7 +5,18 @@ import Intermission from "./runs/intermission/Intermission";
 import StateHandler from "./runs/StateHandler";
 
 export class GameStateManager {
-	private _states: Gamestate = { started: false, state: State.INTERMISSION };
+	private _states: Gamestate = {
+		started: false,
+		state: State.INTERMISSION,
+		producedCount: {},
+		quota: {
+			isActive: false,
+			item: undefined,
+			count: undefined,
+
+			delivered: undefined,
+		},
+	};
 	private stateHandler: StateHandler | undefined;
 
 	public loadGameState() {
@@ -81,6 +92,15 @@ export class GameStateManager {
 export interface Gamestate {
 	started: boolean;
 	state: State;
+	producedCount: {
+		[key: string]: number;
+	};
+	quota: {
+		isActive: boolean;
+		item: String | undefined;
+		count: number | undefined;
+		delivered: number | undefined;
+	};
 }
 
 export enum State {

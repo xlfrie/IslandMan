@@ -7,11 +7,12 @@ import { gameStateManager } from "../../../main";
 import { MOB_EVENTS } from "../../../utils/MobEvents";
 import { State } from "../../GameStateManager";
 import StateHandler from "../StateHandler";
+import QuotaActionbar from "./intervals/QuotaActionbar";
 
 export default class Gameplay extends StateHandler {
 	public state: State = State.GAMEPLAY;
 	public events: Event[] = [];
-	public intervals: Interval[] = [];
+	public intervals: Interval[] = [new QuotaActionbar()];
 
 	public isFirstLoad: boolean = !gameStateManager.states.started;
 

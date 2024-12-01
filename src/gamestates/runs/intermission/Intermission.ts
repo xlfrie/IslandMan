@@ -4,13 +4,13 @@ import Interval from "types/Interval";
 import { Vector } from "wrappers/Vector";
 import { State } from "../../GameStateManager";
 import StateHandler from "../StateHandler";
-import IntermissionActionBar from "./intervals/IntermissionActionBar";
+import IntermissionActionbar from "./intervals/IntermissionActionBar";
 
 export default class Intermission extends StateHandler {
 	public state: State = State.INTERMISSION;
 	public events: Event[] = [];
 
-	public intervals: Interval[] = [new IntermissionActionBar()];
+	public intervals: Interval[] = [new IntermissionActionbar()];
 
 	public override playerInit(
 		playerOrEvent: Player | PlayerSpawnAfterEvent

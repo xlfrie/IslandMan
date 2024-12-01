@@ -24,6 +24,14 @@ export default class SetState implements Command {
 			gameStateManager.states = {
 				started: false,
 				state: State.INTERMISSION,
+				producedCount: {},
+				quota: {
+					isActive: false,
+					item: undefined,
+					count: undefined,
+
+					delivered: undefined,
+				},
 			};
 		}
 
