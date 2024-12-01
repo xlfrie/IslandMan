@@ -27,6 +27,6 @@ EventManager.registerEvents([
 ]);
 
 UnitTestRegister.register();
-ChatHelper.setLogLevel(LOG_LEVEL.DEBUG);
+ChatHelper.setLogLevel(LOG_LEVEL.VERBOSE);
 
 export { gameStateManager };
