@@ -1,11 +1,21 @@
 import { world } from "@minecraft/server";
+import Event from "types/Event";
+import Interval from "types/Interval";
 import { Vector } from "wrappers/Vector";
 import { MOB_EVENTS } from "../../../utils/MobEvents";
+import { State } from "../../GameStateManager";
+import StateHandler from "../StateHandler";
 
-export default class Gameplay {
+export default class Gameplay extends StateHandler {
+	public state: State = State.GAMEPLAY;
+	public events: Event[] = [];
+	public intervals: Interval[] = [];
+
 	public islandManSpawn: Vector = new Vector(0.5, 1, 0.5);
 
-	public setup() {
+	public override start() {
+		super.start();
+
 		const overworld = world.getDimension("overworld");
 
 		// Ensure islandman is spawned

@@ -59,7 +59,7 @@ export class GameStateManager {
 			case State.CUTSCENE:
 				break;
 			case State.GAMEPLAY:
-				new Gameplay().setup();
+				this.stateHandler = new Gameplay();
 				break;
 			default:
 				ChatHelper.log("Unknown state");
