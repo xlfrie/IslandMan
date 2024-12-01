@@ -1,13 +1,12 @@
-import { system, world } from "@minecraft/server";
-import SystemIntervalManager from "managers/SystemIntervalManager";
+import { world } from "@minecraft/server";
 import ChatHelper, { LOG_LEVEL } from "utils/ChatHelper";
 import Gameplay from "./runs/gameplay/Gameplay";
 import Intermission from "./runs/intermission/Intermission";
-import IntermissionActionBar from "./runs/intermission/intervals/IntermissionActionBar";
+import StateHandler from "./runs/StateHandler";
 
 export class GameStateManager {
 	private _states: Gamestate = { started: false, state: State.INTERMISSION };
-	private registeredRuns: number[] = [];
+	private stateHandler: StateHandler | undefined;
 
 	public loadGameState() {
 		const states = world.getDynamicProperty("islandman:GameState");
@@ -50,18 +49,12 @@ export class GameStateManager {
 	private onChange() {
 		this.saveGameState();
 
-		for (const id of this.registeredRuns) {
-			system.clearRun(id);
-		}
-
-		let intervals: number[] = [];
+		this.stateHandler?.end();
+		this.stateHandler = undefined;
 
 		switch (this._states.state) {
 			case State.INTERMISSION:
-				new Intermission().setup();
-				intervals = SystemIntervalManager.registerIntervals([
-					new IntermissionActionBar(),
-				]);
+				this.stateHandler = new Intermission();
 				break;
 			case State.CUTSCENE:
 				break;
@@ -73,9 +66,7 @@ export class GameStateManager {
 				break;
 		}
 
-		for (const id of intervals) {
-			this.registeredRuns.push(id);
-		}
+		this.stateHandler?.start();
 	}
 }
 
