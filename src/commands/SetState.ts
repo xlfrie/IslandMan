@@ -12,11 +12,19 @@ export default class SetState implements Command {
 		const newState = parseInt(args[0]);
 
 		if (newState !== undefined && newState >= 0 && newState <= 2) {
-			const states = gameStateManager.states;
-			states.state = newState;
+			ChatHelper.log(`Setting state to ${State[newState].toString()}`);
 
+			const states = gameStateManager.states;
+
+			states.state = newState;
 			gameStateManager.states = states;
-			ChatHelper.log(`Set state to ${State[newState].toString()}`);
+		} else {
+			ChatHelper.log("Reset states");
+
+			gameStateManager.states = {
+				started: false,
+				state: State.INTERMISSION,
+			};
 		}
 
 		return 0;

@@ -1,5 +1,5 @@
 import { world } from "@minecraft/server";
-import ChatHelper, { LOG_LEVEL } from "utils/ChatHelper";
+import ChatHelper, { Colors, LOG_LEVEL } from "utils/ChatHelper";
 import Gameplay from "./runs/gameplay/Gameplay";
 import Intermission from "./runs/intermission/Intermission";
 import StateHandler from "./runs/StateHandler";
@@ -49,8 +49,16 @@ export class GameStateManager {
 	private onChange() {
 		this.saveGameState();
 
+		if (this._states.state === this.stateHandler?.state) return;
+
 		this.stateHandler?.end();
 		this.stateHandler = undefined;
+
+		ChatHelper.log(
+			`Changing state handler to ${Colors.BOLD}${
+				State[this._states.state]
+			}`
+		);
 
 		switch (this._states.state) {
 			case State.INTERMISSION:
