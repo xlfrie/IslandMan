@@ -1,17 +1,52 @@
+import { world } from "@minecraft/server";
 import Interval from "types/Interval";
 import { gameStateManager } from "../../../../main";
+import Assert from "../../../../utils/Assert";
 
 export default class QuotaActionbar implements Interval {
 	public name: string = "gameplay-actionbar";
-	public delay: number = 1;
+	public delay: number = 20;
 
-	private itemPool: String[] = ["minecraft:wheat", "minecraft:oak_log"];
+	private itemPool: string[] = ["minecraft:wheat", "minecraft:oak_log"];
+
+	private filledUnit: string = "|||";
+	private fillerUnit: string = "-";
+	private endCaps: string[] = ["[", "]"];
+	private barLength: number = 20;
 
 	constructor() {
 		if (!gameStateManager.states.quota.isActive) this.activateQuota();
 	}
 
 	public execute = async () => {
+		if (!gameStateManager.states.quota.isActive) return 0;
+		let bar: string = "";
+
+		Assert.assertIsNumber(gameStateManager.states.quota.delivered);
+		Assert.assertIsNumber(gameStateManager.states.quota.count);
+
+		const deliveredPercent =
+			gameStateManager.states.quota.delivered /
+			gameStateManager.states.quota.count;
+
+		for (let i = 0; i < this.barLength; i++) {
+			if ((i + 1) / this.barLength <= deliveredPercent) {
+				bar += this.filledUnit;
+			} else {
+				bar += this.fillerUnit;
+			}
+		}
+
+		// TODO make percent change color based on satisfaction
+
+		let text = `${this.endCaps[0]}${bar}${this.endCaps[1]} ${(
+			deliveredPercent * 100
+		).toPrecision(1)}%`;
+
+		for (const player of world.getAllPlayers()) {
+			player.onScreenDisplay.setActionBar(text);
+		}
+
 		return 0;
 	};
 
