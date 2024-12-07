@@ -7,11 +7,12 @@ import { gameStateManager } from "main";
 import { State } from "main/gamestates/GameStateManager";
 import { MOB_EVENTS } from "main/utils/MobEvents";
 import StateHandler from "../StateHandler";
+import QuotaActionbar from "./intervals/QuotaActionbar";
 
 export default class Gameplay extends StateHandler {
     public state: State = State.GAMEPLAY;
     public events: Event[] = [];
-    public intervals: Interval[] = [];
+    public intervals: Interval[] = [new QuotaActionbar()];
 
     public isFirstLoad: boolean = !gameStateManager.states.started;
 
@@ -19,12 +20,9 @@ export default class Gameplay extends StateHandler {
 
     public override start() {
         if (this.isFirstLoad) {
-            const states = gameStateManager.states;
-            states.started = true;
-
             ChatHelper.log("Detected first load, preparing game");
 
-            gameStateManager.states = states;
+            gameStateManager.setStarted();
         }
 
         const overworld = world.getDimension("overworld");

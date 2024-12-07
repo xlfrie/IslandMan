@@ -13,15 +13,11 @@ export default class SetState implements Command {
 
         if (newState !== undefined && newState >= 0 && newState <= 2) {
             ChatHelper.log(`Setting state to ${State[newState].toString()}`);
-
-            const states = gameStateManager.states;
-
-            states.state = newState;
-            gameStateManager.states = states;
+            gameStateManager.setState(newState);
         } else {
             ChatHelper.log("Reset states");
 
-            gameStateManager.states = {
+            gameStateManager._states = {
                 started: false,
                 state: State.INTERMISSION,
                 producedCount: {},
@@ -33,8 +29,10 @@ export default class SetState implements Command {
                     delivered: undefined,
                 },
             };
-        }
 
+            gameStateManager.saveGameState();
+            gameStateManager.loadGameState();
+        }
         return 0;
     };
 }

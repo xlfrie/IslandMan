@@ -1,7 +1,7 @@
 import { world } from "@minecraft/server";
 import Interval from "lib/types/Interval";
-import ChatHelper from "lib/utils/ChatHelper";
 import { gameStateManager } from "main";
+import { Quota } from "main/gamestates/GameStateManager";
 import Assert from "main/utils/Assert";
 
 export default class QuotaActionbar implements Interval {
@@ -55,7 +55,6 @@ export default class QuotaActionbar implements Interval {
             gameStateManager.states.quota.delivered %
             (gameStateManager.states.quota.count + 1);
 
-        ChatHelper.log("quota ticking");
         return 0;
     };
 
@@ -64,18 +63,15 @@ export default class QuotaActionbar implements Interval {
         // TODO make quota scale with player count
         // TODO make quota count scale with their production rates.
 
-        const states = gameStateManager.states;
-
-        states.quota.item =
-            this.itemPool[
+        const quota: Quota = {
+            item: this.itemPool[
                 Math.round(Math.random() * (this.itemPool.length - 1))
-            ];
-        states.quota.count = Math.round(Math.random() * 50);
+            ],
+            count: Math.round(Math.random() * 50),
+            delivered: 0,
+            isActive: true,
+        };
 
-        states.quota.delivered = 0;
-
-        states.quota.isActive = true;
-
-        gameStateManager.states = states;
+        gameStateManager.setQuota(quota);
     }
 }

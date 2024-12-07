@@ -6,7 +6,7 @@ import Intermission from "./runs/intermission/Intermission";
 import StateHandler from "./runs/StateHandler";
 
 export default class GameStateManager {
-    private _states: Gamestate = {
+    public _states: Gamestate = {
         started: false,
         state: State.INTERMISSION,
         producedCount: {},
@@ -29,49 +29,58 @@ export default class GameStateManager {
                 LOG_LEVEL.WARN
             );
             this.saveGameState();
+
+            this.initState();
             return;
         }
 
         if (typeof states !== "string") throw new Error("Corrupted gamestate");
 
         ChatHelper.log(`Successfully loaded gamestate`);
-        this.states = JSON.parse(states);
+        this._states = JSON.parse(states);
+
+        this.initState();
     }
 
-    private saveGameState() {
+    get states() {
+        return this._states;
+    }
+
+    public saveGameState() {
         world.setDynamicProperty(
             "islandman:GameState",
             JSON.stringify(this._states)
         );
     }
 
-    get states(): Gamestate {
-        return this._states;
-    }
-
-    set states(state) {
-        ChatHelper.log(
-            `Gamestate change, new data ${JSON.stringify(state)}`,
-            LOG_LEVEL.DEBUG
-        );
-        this._states = state;
-        this.onChange();
-    }
-
-    private onChange() {
+    public setStarted(started?: boolean) {
+        this._states.started = started == undefined ? true : started;
         this.saveGameState();
+    }
 
-        if (this._states.state === gameStateManager.stateHandler?.state) return;
+    public setQuota(quota: Quota) {
+        this._states.quota = quota;
+        this.saveGameState();
+    }
 
-        gameStateManager.stateHandler?.end();
+    public setState(state: State) {
+        if (state !== this._states.state) {
+            this._states.state = state;
+            this.saveGameState();
+            this.initState();
+        }
+    }
 
+    public initState() {
         ChatHelper.log(
             `Changing state handler to ${Colors.BOLD}${
                 State[this._states.state]
             }`
         );
 
-        switch (this._states.state) {
+        this.stateHandler?.end();
+
+        switch (gameStateManager._states.state) {
             case State.INTERMISSION:
                 gameStateManager.stateHandler = new Intermission();
                 break;
@@ -96,12 +105,14 @@ export interface Gamestate {
     producedCount: {
         [key: string]: number;
     };
-    quota: {
-        isActive: boolean;
-        item: String | undefined;
-        count: number | undefined;
-        delivered: number | undefined;
-    };
+    quota: Quota;
+}
+
+export interface Quota {
+    isActive: boolean;
+    item: String | undefined;
+    count: number | undefined;
+    delivered: number | undefined;
 }
 
 export enum State {
