@@ -1,6 +1,6 @@
 import { world } from "@minecraft/server";
 import Interval from "types/Interval";
-import { Colors } from "utils/ChatHelper";
+import ChatHelper, { Colors } from "utils/ChatHelper";
 
 export default class IntermissionActionbar implements Interval {
 	public name: string = "intermission-actionbar";
@@ -10,6 +10,7 @@ export default class IntermissionActionbar implements Interval {
 	private iteration: number = 0;
 
 	public execute = async () => {
+		ChatHelper.log("intermission ticking");
 		let string = "INTERMISSION";
 
 		const wheelIndex = this.iteration % this.wheel.length;

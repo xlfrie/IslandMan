@@ -1,5 +1,6 @@
 import { world } from "@minecraft/server";
 import ChatHelper, { Colors, LOG_LEVEL } from "utils/ChatHelper";
+import { gameStateManager } from "../main";
 import Gameplay from "./runs/gameplay/Gameplay";
 import Intermission from "./runs/intermission/Intermission";
 import StateHandler from "./runs/StateHandler";
@@ -17,7 +18,7 @@ export class GameStateManager {
 			delivered: undefined,
 		},
 	};
-	private stateHandler: StateHandler | undefined;
+	public stateHandler: StateHandler | undefined;
 
 	public loadGameState() {
 		const states = world.getDynamicProperty("islandman:GameState");
@@ -60,10 +61,9 @@ export class GameStateManager {
 	private onChange() {
 		this.saveGameState();
 
-		if (this._states.state === this.stateHandler?.state) return;
+		if (this._states.state === gameStateManager.stateHandler?.state) return;
 
-		this.stateHandler?.end();
-		this.stateHandler = undefined;
+		gameStateManager.stateHandler?.end();
 
 		ChatHelper.log(
 			`Changing state handler to ${Colors.BOLD}${
@@ -73,19 +73,20 @@ export class GameStateManager {
 
 		switch (this._states.state) {
 			case State.INTERMISSION:
-				this.stateHandler = new Intermission();
+				gameStateManager.stateHandler = new Intermission();
 				break;
 			case State.CUTSCENE:
+				gameStateManager.stateHandler = undefined;
 				break;
 			case State.GAMEPLAY:
-				this.stateHandler = new Gameplay();
+				gameStateManager.stateHandler = new Gameplay();
 				break;
 			default:
 				ChatHelper.log("Unknown state");
 				break;
 		}
 
-		this.stateHandler?.start();
+		gameStateManager.stateHandler?.start();
 	}
 }
 

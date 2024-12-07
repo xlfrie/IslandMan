@@ -1,5 +1,6 @@
 import { world } from "@minecraft/server";
 import Interval from "types/Interval";
+import ChatHelper from "utils/ChatHelper";
 import { gameStateManager } from "../../../../main";
 import Assert from "../../../../utils/Assert";
 
@@ -39,14 +40,22 @@ export default class QuotaActionbar implements Interval {
 
 		// TODO make percent change color based on satisfaction
 
-		let text = `${this.endCaps[0]}${bar}${this.endCaps[1]} ${(
-			deliveredPercent * 100
-		).toPrecision(1)}%`;
+		let text = `${Math.round(deliveredPercent * 100 * 10) / 10}% ${
+			this.endCaps[0]
+		}${bar}${this.endCaps[1]} ${
+			Math.round(deliveredPercent * 100 * 10) / 10
+		}%`;
 
 		for (const player of world.getAllPlayers()) {
 			player.onScreenDisplay.setActionBar(text);
 		}
 
+		gameStateManager.states.quota.delivered++;
+		gameStateManager.states.quota.delivered =
+			gameStateManager.states.quota.delivered %
+			(gameStateManager.states.quota.count + 1);
+
+		ChatHelper.log("quota ticking");
 		return 0;
 	};
 

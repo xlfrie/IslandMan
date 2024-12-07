@@ -7,20 +7,17 @@ import { gameStateManager } from "../../../main";
 import { MOB_EVENTS } from "../../../utils/MobEvents";
 import { State } from "../../GameStateManager";
 import StateHandler from "../StateHandler";
-import QuotaActionbar from "./intervals/QuotaActionbar";
 
 export default class Gameplay extends StateHandler {
 	public state: State = State.GAMEPLAY;
 	public events: Event[] = [];
-	public intervals: Interval[] = [new QuotaActionbar()];
+	public intervals: Interval[] = [];
 
 	public isFirstLoad: boolean = !gameStateManager.states.started;
 
 	public islandManSpawn: Vector = new Vector(0.5, 1, 0.5);
 
 	public override start() {
-		super.start();
-
 		if (this.isFirstLoad) {
 			const states = gameStateManager.states;
 			states.started = true;
@@ -47,5 +44,12 @@ export default class Gameplay extends StateHandler {
 		);
 
 		islandMan.triggerEvent(MOB_EVENTS.GO_CENTER);
+
+		super.start();
+	}
+
+	private gameSetup() {
+		world.setTimeOfDay(0);
+		world.setAbsoluteTime(0);
 	}
 }
