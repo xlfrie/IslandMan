@@ -4,11 +4,11 @@
 		{
 			"type": "minecraft-js",
 			"request": "attach",
-			"name": "Wait for Minecraft Debug Connections",
+			"name": "Debug with Minecraft",
 			"mode": "listen",
-			"port": 19144,
-			"sourceMapRoot": "C:\\Users\\prune\\AppData\\Local\\Packages\\Microsoft.MinecraftUWP_8wekyb3d8bbwe\\LocalState\\games\\com.mojang\\development_behavior_packs\\island-man\\scripts",
-			"generatedSourceRoot": "C:\\Users\\prune\\AppData\\Local\\Packages\\Microsoft.MinecraftUWP_8wekyb3d8bbwe\\LocalState\\games\\com.mojang\\development_behavior_packs\\island-man\\scripts"
+			"sourceMapRoot": "${workspaceFolder}/dist/scripts/",
+			"generatedSourceRoot": "${workspaceFolder}/dist/scripts/",
+			"port": 19144
 		}
 	]
 }

@@ -5,7 +5,7 @@
 		"description": "Island Man.",
 		"uuid": "21eea50b-f183-4f67-a882-48678167f529",
 		"version": [1, 0, 0],
-		"min_engine_version": [1, 21, 44]
+		"min_engine_version": [1, 21, 50]
 	},
 	"modules": [
 		{
@@ -14,7 +14,7 @@
 			"type": "script",
 			"uuid": "8e5c3d28-f9c0-40ab-93b9-fc861782dd95",
 			"version": [1, 0, 0],
-			"entry": "scripts/main.js"
+			"entry": "scripts/index.js"
 		}
 	],
 	"dependencies": [
@@ -24,15 +24,7 @@
 		},
 		{
 			"module_name": "@minecraft/server",
-			"version": "1.16.0-beta"
-		},
-		{
-			"module_name": "@minecraft/server-ui",
-			"version": "1.4.0-beta"
-		},
-		{
-			"module_name": "@minecraft/server-gametest",
-			"version": "1.0.0-beta"
+			"version": "1.17.0-beta"
 		}
 	],
 	"metadata": {

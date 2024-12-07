@@ -2,11 +2,8 @@
 	"name": "island-man",
 	"version": "1.0.0",
 	"description": "island man.",
-	"main": "src/main.ts",
 	"scripts": {
-		"test": "echo \"Error: no test specified\" && exit 1",
-		"watch": "esrun tools/watch.ts",
-		"build": "npx webpack"
+		"watch": "node development/esbuild.mjs"
 	},
 	"repository": {
 		"type": "git",
@@ -14,23 +11,14 @@
 	},
 	"author": "XLFrie",
 	"license": "MIT",
-	"type": "commonjs",
-	"dependencies": {
-		"@minecraft/server": "1.16.0-beta.1.21.44-stable",
-		"@minecraft/server-ui": "1.4.0-beta.1.21.44-stable",
-		"@minecraft/server-gametest": "1.0.0-beta.1.21.44-stable"
-	},
 	"devDependencies": {
-		"@braintree/uuid": "^1.0.0",
-		"@types/ws": "^8.5.10",
-		"copy-webpack-plugin": "^12.0.2",
-		"esrun": "^3.2.26",
-		"source-map": "^0.7.4",
-		"ts-loader": "^9.5.1",
-		"tsconfig-paths-webpack-plugin": "^4.1.0",
-		"typescript": "^5.3.3",
-		"webpack": "^5.89.0",
-		"webpack-cli": "^5.1.4",
-		"ws": "^8.16.0"
+		"@types/ws": "^8.5.13",
+		"esbuild": "0.24.0",
+		"typescript": "^5.7.2",
+		"uuid": "^11.0.3",
+		"ws": "^8.18.0"
+	},
+	"dependencies": {
+		"@minecraft/server": "^1.17.0-beta.1.21.50-stable"
 	}
 }

@@ -5,7 +5,7 @@
 		"description": "Island Man.",
 		"uuid": "bcf80f79-e3e7-407a-818f-7410a63137a8",
 		"version": [1, 0, 0],
-		"min_engine_version": [1, 21, 44]
+		"min_engine_version": [1, 21, 50]
 	},
 	"modules": [
 		{

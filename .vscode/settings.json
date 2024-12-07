@@ -1,25 +1,7 @@
 {
-	"[javascript]": {
-		"editor.defaultFormatter": "esbenp.prettier-vscode"
-	},
 	"[typescript]": {
-		"editor.defaultFormatter": "esbenp.prettier-vscode"
+		"editor.defaultFormatter": "esbenp.prettier-vscode",
+		"editor.formatOnSave": true
 	},
-	"git.ignoreLimitWarning": true,
-	"editor.formatOnSave": true,
-	"search.exclude": {
-		"**/.git": true,
-		"**/node_modules": true,
-		"**/build": true,
-		"**/bds": true
-	},
-	"files.exclude": {
-		"**/.git": true,
-		"**/.DS_Store": true,
-		"**/node_modules": true,
-		"**/build": true,
-		"**/bds": true
-	},
-	"prettier.useTabs": true,
 	"typescript.preferences.importModuleSpecifierEnding": "minimal"
 }

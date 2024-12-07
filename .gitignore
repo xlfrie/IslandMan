@@ -1,5 +1,3 @@
-.idea
-node_modules
-behavior_pack/scripts
-dist
+node_modules/
+dist/
 package-lock.json
