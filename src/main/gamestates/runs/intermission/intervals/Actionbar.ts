@@ -2,7 +2,7 @@ import { world } from "@minecraft/server";
 import Interval from "lib/types/Interval";
 import { Colors } from "lib/utils/ChatHelper";
 
-export default class IntermissionActionbar implements Interval {
+export default class Actionbar implements Interval {
     public name: string = "intermission-actionbar";
     public delay: number = 5;
 
