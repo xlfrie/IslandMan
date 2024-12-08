@@ -1,4 +1,4 @@
-import { world } from "@minecraft/server";
+import { LocationInUnloadedChunkError, system, world } from "@minecraft/server";
 import Event from "lib/types/Event";
 import Interval from "lib/types/Interval";
 import ChatHelper from "lib/utils/ChatHelper";
@@ -23,8 +23,32 @@ export default class Gameplay extends StateHandler {
             ChatHelper.log("Detected first load, preparing game");
 
             gameStateManager.setStarted();
+
+            this.gameSetup();
         }
 
+        let i = 1;
+
+        const runid = system.runInterval(() => {
+            console.log("Trying to spawn island man. Attempt " + i);
+
+            try {
+                this.spawnIslandMan();
+
+                system.clearRun(runid);
+            } catch (e) {
+                if (!(e instanceof LocationInUnloadedChunkError)) {
+                    throw e;
+                }
+            } finally {
+                i++;
+            }
+        }, 20);
+
+        super.start();
+    }
+
+    private spawnIslandMan() {
         const overworld = world.getDimension("overworld");
 
         // Ensure islandman is spawned
@@ -42,8 +66,6 @@ export default class Gameplay extends StateHandler {
         );
 
         islandMan.triggerEvent(MOB_EVENTS.GO_CENTER);
-
-        super.start();
     }
 
     private gameSetup() {
