@@ -1,5 +1,6 @@
 import { world } from "@minecraft/server";
 import Interval from "lib/types/Interval";
+import { Colors } from "lib/utils/ChatHelper";
 import { gameStateManager } from "main";
 import { Quota } from "main/gamestates/GameStateManager";
 import Assert from "main/utils/Assert";
@@ -14,6 +15,15 @@ export default class QuotaActionbar implements Interval {
     private fillerUnit: string = "-";
     private endCaps: string[] = ["[", "]"];
     private barLength: number = 20;
+    private barColors: Colors[] = [
+        Colors.MATERIAL_REDSTONE,
+        Colors.RED,
+        Colors.MATERIAL_RESIN,
+        Colors.GOLD,
+        Colors.YELLOW,
+        Colors.MINECON_GOLD,
+        Colors.MATERIAL_EMERALD,
+    ];
 
     constructor() {
         if (!gameStateManager.states.quota.isActive) this.activateQuota();
@@ -30,21 +40,35 @@ export default class QuotaActionbar implements Interval {
             gameStateManager.states.quota.delivered /
             gameStateManager.states.quota.count;
 
+        // TODO fix this, uneven distribution (first and last are favored)
+        const color =
+            this.barColors[
+                Math.min(
+                    Math.floor(deliveredPercent * this.barColors.length),
+                    this.barColors.length - 1
+                )
+            ];
+
+        let startedFilling = false;
+
         for (let i = 0; i < this.barLength; i++) {
             if ((i + 1) / this.barLength <= deliveredPercent) {
                 bar += this.filledUnit;
             } else {
+                if (!startedFilling) {
+                    startedFilling = true;
+
+                    bar += Colors.DARK_GRAY;
+                }
                 bar += this.fillerUnit;
             }
         }
 
+        const displayedPercent = Math.round(deliveredPercent * 100 * 10) / 10;
+
         // TODO make percent change color based on satisfaction
 
-        let text = `${Math.round(deliveredPercent * 100 * 10) / 10}% ${
-            this.endCaps[0]
-        }${bar}${this.endCaps[1]} ${
-            Math.round(deliveredPercent * 100 * 10) / 10
-        }%`;
+        let text = `${Colors.GRAY}${displayedPercent}% ${this.endCaps[0]}${color}${Colors.ITALIC}${bar}${Colors.RESET}${Colors.GRAY}${this.endCaps[1]} ${displayedPercent}%`;
 
         for (const player of world.getAllPlayers()) {
             player.onScreenDisplay.setActionBar(text);
