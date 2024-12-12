@@ -1,24 +1,24 @@
 {
-	"name": "island-man",
-	"version": "1.0.0",
-	"description": "island man.",
-	"scripts": {
-		"watch": "node development/esbuild.mjs"
-	},
-	"repository": {
-		"type": "git",
-		"url": "git+https://github.com/xlfrie/islandman.git"
-	},
-	"author": "XLFrie",
-	"license": "MIT",
-	"devDependencies": {
-		"@types/ws": "^8.5.13",
-		"esbuild": "0.24.0",
-		"typescript": "^5.7.2",
-		"uuid": "^11.0.3",
-		"ws": "^8.18.0"
-	},
-	"dependencies": {
-		"@minecraft/server": "^1.17.0-beta.1.21.50-stable"
-	}
+    "name": "island-man",
+    "version": "1.0.0",
+    "description": "island man.",
+    "scripts": {
+        "watch": "node development/esbuild.mjs"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/xlfrie/islandman.git"
+    },
+    "author": "XLFrie",
+    "license": "MIT",
+    "devDependencies": {
+        "@types/ws": "^8.5.13",
+        "esbuild": "0.24.0",
+        "typescript": "^5.7.2",
+        "uuid": "^11.0.3",
+        "ws": "^8.18.0"
+    },
+    "dependencies": {
+        "@minecraft/server": "1.17.0-beta.1.21.51-stable"
+    }
 }

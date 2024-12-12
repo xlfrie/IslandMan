@@ -1,7 +1,8 @@
 {
-	"[typescript]": {
-		"editor.defaultFormatter": "esbenp.prettier-vscode",
-		"editor.formatOnSave": true
-	},
-	"typescript.preferences.importModuleSpecifierEnding": "minimal"
+    "[typescript]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode",
+        "editor.formatOnSave": true
+    },
+    "typescript.preferences.importModuleSpecifierEnding": "minimal",
+    "typescript.tsdk": "node_modules\\typescript\\lib"
 }

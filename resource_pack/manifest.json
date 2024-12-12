@@ -1,22 +1,22 @@
 {
-	"format_version": 2,
-	"header": {
-		"name": "Island Man RP",
-		"description": "Island Man.",
-		"uuid": "bcf80f79-e3e7-407a-818f-7410a63137a8",
-		"version": [1, 0, 0],
-		"min_engine_version": [1, 21, 50]
-	},
-	"modules": [
-		{
-			"type": "resources",
-			"description": "Resources",
-			"uuid": "21dcdc30-335e-48ce-9450-726661319592",
-			"version": [1, 0, 0]
-		}
-	],
-	"metadata": {
-		"authors": ["XLFrie"],
-		"url": "https://github.com/xlfrie/islandman.git"
-	}
+    "format_version": 2,
+    "header": {
+        "name": "Island Man RP",
+        "description": "Island Man.",
+        "uuid": "bcf80f79-e3e7-407a-818f-7410a63137a8",
+        "version": [1, 0, 0],
+        "min_engine_version": [1, 21, 51]
+    },
+    "modules": [
+        {
+            "type": "resources",
+            "description": "Resources",
+            "uuid": "21dcdc30-335e-48ce-9450-726661319592",
+            "version": [1, 0, 0]
+        }
+    ],
+    "metadata": {
+        "authors": ["XLFrie"],
+        "url": "https://github.com/xlfrie/islandman.git"
+    }
 }
